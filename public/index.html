@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RH Konok - Gemini JSON Generator</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      overflow-x: hidden; /* Prevent horizontal scrollbar */
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-b from-indigo-100 via-white to-indigo-100 text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-indigo-600 text-white shadow-md animate-fadeIn">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-semibold">🚀 RH Konok</h1>
+      <nav class="hidden md:flex space-x-6">
+        <a href="/" class="hover:text-gray-200">Home</a>
+        <a href="#prompt" class="hover:text-gray-200">Prompt</a>
+        <a href="https://github.com/Rakibul-Hasan-Konok/crack-ai" target="_blank" class="hover:text-gray-200">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center px-4 py-10 animate-fadeIn">
+    <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg p-8 space-y-6">
+      <h2 class="text-3xl font-bold text-center text-indigo-600">AI JSON Generator</h2>
+      <p class="text-center text-gray-600">Describe what you want in JSON format, and Gemini AI will generate it.</p>
+
+      <form id="promptForm" class="space-y-4">
+        <textarea id="prompt" name="prompt" placeholder="E.g., 5 startup ideas with name and description..." class="w-full h-40 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"></textarea>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded transition duration-200">
+          Generate JSON
+        </button>
+      </form>
+
+      <div id="output" class="bg-gray-900 text-green-300 p-4 rounded-md text-sm max-h-80 overflow-y-auto whitespace-pre-wrap font-mono">
+        <span class="text-gray-500">Output will appear here...</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-indigo-600 text-white text-center py-4 mt-10 animate-fadeIn">
+    <p>&copy; 2025 RH Konok. Built with ❤️ and Gemini AI</p>
+  </footer>
+
+  <!-- Fade Animation (Tailwind custom class) -->
+  <style>
+    .animate-fadeIn {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <!-- Script -->
+  <script>
+    const form = document.getElementById("promptForm");
+    const output = document.getElementById("output");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const prompt = document.getElementById("prompt").value;
+      output.innerHTML = '<span class="text-yellow-400">Generating...</span>';
+
+      try {
+        const res = await fetch("/prompt", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ prompt }),
+        });
+
+        const data = await res.json();
+        if (data.status === 200) {
+          output.textContent = JSON.stringify(data.data, null, 2);
+        } else {
+          output.textContent = "❌ Failed to get response.";
+        }
+      } catch (err) {
+        output.textContent = "⚠️ Error: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

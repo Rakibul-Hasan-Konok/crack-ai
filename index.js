@@ -8,35 +8,28 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-const form = `
-<form method="POST" action="/prompt">
-  <textarea name="prompt" id="prompt"></textarea>
-  <button type="submit">Generate JSON</button>
-</form>
-`;
-
+// Serve static files from "public" folder
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/prompt", async (req, res) => {
-  res.send(form);
-});
-
 app.post("/prompt", async (req, res) => {
-  let { prompt } = req.body; 
+  let { prompt } = req.body;
   prompt = prompt + ". data will be in json stringify version. no extra text";
 
+  try {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = await response.text();
-
-    const rsp = text.split("```json")[1].split("```")[0]; // ✅ safer JSON extraction
+    const rsp = text.split("```json")[1].split("```")[0];
     res.send({ data: JSON.parse(rsp), status: 200 });
-    
+  } catch (error) {
+    console.error("Error generating or parsing content:", error);
+    res.status(500).send({ error: "Failed to generate or parse content" });
+  }
 });
 
-
 app.get("/", (req, res) => {
-  res.send({ data: "Server running", status: 200 });
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.listen(port, () => {
