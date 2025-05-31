@@ -1,7 +1,7 @@
 {
   "name": "crack-ai",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000c\u0000r\u0000a\u0000c\u0000k\u0000-\u0000a\u0000i\u0000\r\u0000 \u0000",
+  "description": "An AI-powered story generation server using Gemini API",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Rakibul-Hasan-Konok/crack-ai#readme",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
