@@ -16,7 +16,6 @@ Try it out here: [https://crack-ai.vercel.app](https://crack-ai.vercel.app)
 
 - User-friendly responsive UI built with **Tailwind CSS** and **DaisyUI**
 - Generate clean JSON data from any text prompt using Google Gemini API
-- Copy JSON output with one click
 - Secure backend built with **Express.js**
 - Easy deployment with **Vercel**
 
