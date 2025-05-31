@@ -1,0 +1,30 @@
+{
+  "name": "crack-ai",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000c\u0000r\u0000a\u0000c\u0000k\u0000-\u0000a\u0000i\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rakibul-Hasan-Konok/crack-ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rakibul-Hasan-Konok/crack-ai/issues"
+  },
+  "homepage": "https://github.com/Rakibul-Hasan-Konok/crack-ai#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
